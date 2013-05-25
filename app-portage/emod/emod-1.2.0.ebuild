@@ -5,7 +5,7 @@
 EAPI=5
 
 inherit distutils
-DESCRIPTION="portage package.* file manager."
+DESCRIPTION="Python script for managing portage package.* files"
 HOMEPAGE="https://github.com/Pyntony/emod"
 SRC_URI="https://github.com/Pyntony/${PN}/archive/${PV}.tar.gz"
 LICENSE="GPL-3"
