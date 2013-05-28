@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+        <herd>python</herd>
+        <maintainer><email>tampakrap@gentoo.org</email></maintainer>
+        <maintainer>
+                <email>johneed@hotmail.com</email>
+                <name>Ian idella4 Delaney proxy maintainer</name>
+        </maintainer>
+		<use>
+			<flag name='ext'>Enable building of tkinter, freetype2 and lcms support</flag>
+			<flag name='sane'>Enable building of the sane module</flag>
+		</use>
+</pkgmetadata>
