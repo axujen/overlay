@@ -8,7 +8,7 @@ PYTHON_COMPAT=( python{2.7,3.2} )
 inherit distutils
 DESCRIPTION="Python script for managing portage package.* files"
 HOMEPAGE="https://github.com/Pyntony/emod"
-SRC_URI="https://github.com/Pyntony/${PN}/archive/${PV}.tar.gz"
+SRC_URI="https://github.com/Pyntony/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd65 ~arm ~hppa ~mips ~ppc64 ~x86"
