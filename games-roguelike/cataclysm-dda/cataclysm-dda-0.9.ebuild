@@ -14,7 +14,7 @@ SRC_URI="https://github.com/CleverRaven/Cataclysm-DDA/archive/${PV}.tar.gz -> ${
 LICENSE="CC-BY-SA-3.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="ncurses +tiles debug lua nls"
+IUSE="ncurses +tiles"
 REQUIRED_USE="|| ( ncurses tiles )"
 
 RDEPEND="
@@ -25,6 +25,7 @@ RDEPEND="
 		media-libs/sdl-image[jpeg,png]
 		media-libs/freetype:2
 	)
+
 "
 
 # Cataclysm: DDA makefiles explicitly require "g++", GCC's C++ compiler.
@@ -47,7 +48,13 @@ src_prepare() {
 # Compile a release rather than debug build.
 # Disable -Werror it causes problems
 src_compile() {
-	emake RELEASE=1 WARNINGS="" || die "emake failed"
+	if use ncurses; then
+		emake RELEASE=1 WARNINGS=""
+	fi
+
+	if use tiles; then
+		emake TILES=1 RELEASE=1 WARNING=""
+	fi
 }
 
 # Cataclysm: DDA makefiles define no "install" target. ("A pox on yer scurvy
@@ -58,7 +65,11 @@ src_install() {
 
 	# The "cataclysm" executable expects to be executed from its home directory.
 	# Make a wrapper script guaranteeing this.
-	games_make_wrapper "${PN}"-ncurses ./cataclysm "${cataclysm_home}"
+	games_make_wrapper "${PN}" ./cataclysm "${cataclysm_home}"
+
+	if use tiles; then
+		games_make_wrapper "${PN}"-tiles ./cataclysm-tiles "${cataclysm_home}"
+	fi
 
 	# Install Cataclysm: DDA.
 	insinto "${cataclysm_home}"
