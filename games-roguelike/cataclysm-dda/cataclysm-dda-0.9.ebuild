@@ -14,11 +14,10 @@ SRC_URI="https://github.com/CleverRaven/Cataclysm-DDA/archive/${PV}.tar.gz -> ${
 LICENSE="CC-BY-SA-3.0"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="ncurses +tiles"
-REQUIRED_USE="|| ( ncurses tiles )"
+IUSE="tiles"
 
 RDEPEND="
-	ncurses? ( sys-libs/ncurses:5= )
+	sys-libs/ncurses:5=
 	tiles? (
 		media-libs/libsdl
 		media-libs/sdl-ttf
@@ -48,12 +47,10 @@ src_prepare() {
 # Compile a release rather than debug build.
 # Disable -Werror it causes problems
 src_compile() {
-	if use ncurses; then
-		emake RELEASE=1 WARNINGS=""
-	fi
-
 	if use tiles; then
-		emake TILES=1 RELEASE=1 WARNING=""
+		emake TILES=1 RELEASE=1 WARNINGS=""
+	else
+		emake RELEASE=1 WARNINGS=""
 	fi
 }
 
