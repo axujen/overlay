@@ -59,20 +59,22 @@ src_compile() {
 src_install() {
 	# Directory to install Cataclysm: DDA to.
 	local cataclysm_home="${GAMES_DATADIR}/${PN}"
+	local gamebin="cataclysm"
+
+	# work with the tiles version since the makefile names them differently
+	if use tiles; then
+		gamebin="cataclysm-tiles"
+	fi
 
 	# The "cataclysm" executable expects to be executed from its home directory.
 	# Make a wrapper script guaranteeing this.
-	games_make_wrapper "${PN}" ./cataclysm "${cataclysm_home}"
-
-	if use tiles; then
-		games_make_wrapper "${PN}"-tiles ./cataclysm-tiles "${cataclysm_home}"
-	fi
+	games_make_wrapper "${PN}" "./${gamebin}" "${cataclysm_home}"
 
 	# Install Cataclysm: DDA.
 	insinto "${cataclysm_home}"
 	doins -r data
 	exeinto "${cataclysm_home}"
-	doexe cataclysm
+	doexe "${gamebin}"
 
 	# Force game-specific user and group permissions.
 	prepgamesdirs
